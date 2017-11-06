@@ -17,16 +17,13 @@ public class Match {
 	@Column
 	private String record;
 	
-	@Column
-	private boolean result;
-
 	@ManyToOne
 	@JoinColumn(name="fighterid", referencedColumnName="id")
-	private Fighter fighter;
+	private Fighter winner;
 	
 	@ManyToOne
 	@JoinColumn(name="opponentid", referencedColumnName="id")
-	private Fighter opponent;
+	private Fighter loser;
 	
 	@Column
 	private String event;
@@ -39,6 +36,11 @@ public class Match {
 
 	public Match(){}
 	
+	public void showName(){
+		
+		System.out.println(winner.getName() + loser.getName());
+	}
+	
 	
 	public int getMatchid() {
 		return matchid;
@@ -48,21 +50,17 @@ public class Match {
 		this.matchid = matchid;
 	}
 
-	public boolean getResult() {
-		return result;
+
+
+	public Fighter getWinner() {
+		return winner;
 	}
 
-	public void setResult(boolean result) {
-		this.result = result;
+
+	public void setWinner(Fighter winner) {
+		this.winner = winner;
 	}
 
-	public Fighter getFighter() {
-		return fighter;
-	}
-
-	public void setFighter(Fighter fighter) {
-		this.fighter = fighter;
-	}
 
 	public String getEvent() {
 		return event;
@@ -98,13 +96,13 @@ public class Match {
 	}
 
 
-	public Fighter getOpponent() {
-		return opponent;
+	public Fighter getLoser() {
+		return loser;
 	}
 
 
-	public void setOpponent(Fighter opponent) {
-		this.opponent = opponent;
+	public void setLoser(Fighter loser) {
+		this.loser = loser;
 	}
 
 

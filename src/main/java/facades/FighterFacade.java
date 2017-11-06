@@ -1,34 +1,45 @@
 package facades;
 
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import entities.Fighter;
 
 @Stateless
+@DeclareRoles({"admin", "users"})
 public class FighterFacade extends AbstractFacade<Fighter> {
 	@PersistenceContext(unitName="fightersinfo")
 	private EntityManager em;
-	
-	public FighterFacade() {
-		super(Fighter.class);
-	}
 	
 	@Override
 	protected EntityManager getEntityManager() {
 		return em;
 	}
 	
-//	<h:panelGrid columns="2" cellpadding="5">
-//	<h:outputText value="vote: " />
-//	<h:outputText id="output" value="#{f.rating}" />
-//</h:panelGrid>
-//
-//<p:commandButton value="+" actionListener="#{f.increment}"
-//	update="output" />
-//<p:commandButton value="-" actionListener="#{f.minus}"
-//	update="output"></p:commandButton>
+	public FighterFacade() {
+		super(Fighter.class);
+	}
+	
+	@Override
+	@RolesAllowed({"admin"})
+	public void create(Fighter entity) {
+		// TODO Auto-generated method stub
+		super.create(entity);
+	}
 
+	@Override
+	@RolesAllowed({"admin"})
+	public void edit(Fighter entity) {
+		// TODO Auto-generated method stub
+		super.edit(entity);
+	}
 
-
+	@Override
+	@RolesAllowed({"admin"})
+	public void remove(Fighter entity) {
+		// TODO Auto-generated method stub
+		super.remove(entity);
+	}
 }

@@ -22,6 +22,7 @@ public class FightBean implements Serializable {
 	
 	private List<Fighter> fighters;
 	private List<Match> matches;
+	private Fighter selectedFighter;
 
 	public List<Fighter> getFighters() {
 		if(fighters == null){
@@ -64,6 +65,12 @@ public class FightBean implements Serializable {
 	}
 	public void setFighterEJB(FighterFacade fighterEJB) {
 		this.fighterEJB = fighterEJB;
+	}
+	public Fighter getSelectedFighter() {
+		return selectedFighter;
+	}
+	public void setSelectedFighter(Fighter selectedFighter) {
+		this.selectedFighter = selectedFighter;
 	}
 }
 

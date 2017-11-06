@@ -81,36 +81,51 @@
 						update="fightTable" />
 				</p:outputPanel>
 			</p:column>
-			
+
 			<p:column>
-             <p:commandButton oncomplete="PF('fightInfoDialog').show()" icon="ui-icon-search" title="View">
-                 <f:setPropertyActionListener value="#{f}" target="#{fightBean.fighters}" />
-            </p:commandButton>
-        </p:column>
+				<p:commandButton oncomplete="PF('fightInfoDialog').show()"
+					icon="ui-icon-search" title="View" update="@form:fightInfoDialog">
+					<f:setPropertyActionListener value="#{f}"
+						target="#{fightBean.selectedFighter}"/>
+				</p:commandButton>
+			</p:column>
 		</p:dataTable>
-		
-		 <p:dialog
-			id="fightInfoDialog"
-			width="850"
-			resizable="false"
-			widgetVar="fightInfoDialog"
-			dynamic="true">
-		<p:dataTable
-			value="#{fightBean.fighters}"
-			var="m">
-			<p:column>
-			<f:facet name="header">Event</f:facet>
-				<p:dataList value="#{m.matches}" var="tag">
-				<h:outputText value="#{tag.result}   * " />
-					<h:outputText value="#{tag.event}   * " />
-					<h:outputText value="#{tag.method}   * " />
-					<h:outputText value="#{tag.round}   * " />
-						<h:outputText value="#{tag.time}   * " />
-				</p:dataList>
+
+		<p:dialog id="fightInfoDialog" width="900" resizable="false"
+			widgetVar="fightInfoDialog" dynamic="true">
+
+			<p:dataTable id="matchTable"
+				value="#{fightBean.selectedFighter.matches}" var="m">
+				<f:facet name="header">
+					<h:outputText value=" Record: #{fightBean.selectedFighter.wins} / #{fightBean.selectedFighter.loses}" />
+					<!-- <h:outputText value="#{fightBean.selectedFighter.name}" /> -->
+				</f:facet>
+				<p:column>
+					<f:facet name="header">Result</f:facet>
+					<h:outputText value="#{m.winner.equals(fightBean.selectedFighter)}" />
 				</p:column>
-			
-		</p:dataTable>
-	</p:dialog>
+				<p:column>
+					<f:facet name="header">Fighter</f:facet>
+					<h:outputText value="#{m.loser.name}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Event</f:facet>
+					<h:outputText value="#{m.event}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Method</f:facet>
+					<h:outputText value="#{m.method}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Round</f:facet>
+					<h:outputText value="#{m.round}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Time</f:facet>
+					<h:outputText value="#{m.time}" />
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
 	</h:form>
 </h:body>
 </html>

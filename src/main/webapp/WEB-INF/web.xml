@@ -20,9 +20,9 @@
 		<welcome-file>index.xhtml</welcome-file>
 	</welcome-file-list>
 
-	<!-- <login-config>
+	<login-config>
 		<auth-method>BASIC</auth-method>
-		<realm-name>konditori</realm-name>
+		<realm-name>fighting_system</realm-name>
 	</login-config>
 	
 	<security-constraint>
@@ -33,6 +33,6 @@
 		<auth-constraint>
 			<role-name>*</role-name>
 		</auth-constraint>
-	</security-constraint> -->
+	</security-constraint>
 	
 </web-app>
