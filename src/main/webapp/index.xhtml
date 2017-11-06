@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<h:body>
+	<h:form>
+		<p:dataTable id="fightTable" value="#{fightBean.fighters}" var="f"
+			editable="true" editMode="cell">
+			<p:column headerText="ID">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{f.id}"></h:outputText>
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{f.id}">
+							<p:ajax listener="#{fightBean.saveFighter(f)}"
+								update="fightTable" />
+						</p:inputText>
+					</f:facet>
+				</p:cellEditor>
+
+			</p:column>
+			<p:column headerText="Name">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{f.name}"></h:outputText>
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{f.name}">
+							<p:ajax listener="#{fightBean.saveFighter(f)}"
+								update="fightTable" />
+						</p:inputText>
+					</f:facet>
+				</p:cellEditor>
+				<f:facet name="footer">
+					<p:outputPanel style="text-align: left;">
+						<p:commandLink value="ADD" action="#{fightBean.addFighter}"
+							update="fightTable" />
+					</p:outputPanel>
+				</f:facet>
+			</p:column>
+			<p:column headerText="Gym">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{f.gym}"></h:outputText>
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{f.gym}">
+							<p:ajax listener="#{fightBean.saveFighter(f)}"
+								update="fightTable" />
+						</p:inputText>
+					</f:facet>
+				</p:cellEditor>
+
+			</p:column>
+
+			<p:column headerText="Rating">
+				<p:growl id="messages" showDetail="true" />
+
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputText value="Rate:" />
+					<p:rating value="#{f.rating}">
+						<p:ajax event="rate" listener="#{f.onrate}" update="messages" />
+						<p:ajax event="cancel" listener="#{f.oncancel}" update="messages" />
+						<p:ajax listener="#{fightBean.saveFighter(f)}" update="fightTable" />
+					</p:rating>
+				</h:panelGrid>
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Delete" />
+				</f:facet>
+				<p:outputPanel style="text-align: left;">
+					<p:commandLink value="X" action="#{fightBean.removeFighter(f)}"
+						update="fightTable" />
+				</p:outputPanel>
+			</p:column>
+			
+			<p:column>
+             <p:commandButton oncomplete="PF('fightInfoDialog').show()" icon="ui-icon-search" title="View">
+                 <f:setPropertyActionListener value="#{f}" target="#{fightBean.fighters}" />
+            </p:commandButton>
+        </p:column>
+		</p:dataTable>
+		
+		 <p:dialog
+			id="fightInfoDialog"
+			width="850"
+			resizable="false"
+			widgetVar="fightInfoDialog"
+			dynamic="true">
+		<p:dataTable
+			value="#{fightBean.fighters}"
+			var="m">
+			<p:column>
+			<f:facet name="header">Event</f:facet>
+				<p:dataList value="#{m.matches}" var="tag">
+				<h:outputText value="#{tag.result}   * " />
+					<h:outputText value="#{tag.event}   * " />
+					<h:outputText value="#{tag.method}   * " />
+					<h:outputText value="#{tag.round}   * " />
+						<h:outputText value="#{tag.time}   * " />
+				</p:dataList>
+				</p:column>
+			
+		</p:dataTable>
+	</p:dialog>
+	</h:form>
+</h:body>
+</html>
