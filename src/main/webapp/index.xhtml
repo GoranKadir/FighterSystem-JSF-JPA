@@ -96,9 +96,11 @@
 
 			<p:dataTable id="matchTable"
 				value="#{fightBean.selectedFighter.matches}" var="m">
+				
 				<f:facet name="header">
+				<h:outputText value="#{fightBean.selectedFighter.name}" />
 					<h:outputText value=" Record: #{fightBean.selectedFighter.wins} / #{fightBean.selectedFighter.loses}" />
-					<!-- <h:outputText value="#{fightBean.selectedFighter.name}" /> -->
+					
 				</f:facet>
 				<p:column>
 					<f:facet name="header">Result</f:facet>
@@ -106,7 +108,7 @@
 				</p:column>
 				<p:column>
 					<f:facet name="header">Fighter</f:facet>
-					<h:outputText value="#{m.loser.name}" />
+					<h:outputText value="#{m.loser.name} vs #{m.winner.name}" />
 				</p:column>
 				<p:column>
 					<f:facet name="header">Event</f:facet>
